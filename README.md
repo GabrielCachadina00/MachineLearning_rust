@@ -13,7 +13,13 @@ Currently, the library is in the early stages of development, and there are limi
 - [ ] **Optimization methods**: I will add various optimization methods to train machine learning models, including stochastic gradient descent, Adam, and RMSprop.
 
 - [ ] **Kernel initialization**: I will implement various methods for kernel initialization in neural networks, such as He initialization, Xavier initialization, and random initialization.
-
+    - <s>Zero initialization</s>
+    - Random normal initialization
+    - Random uniform initialization
+    - Xavier/Glorot Initialization
+    - Normalized Xavier/Glorot
+    - He Uniform Initialization
+    - He Normal Initialization
 - [ ] **CSV input/output**: I will enable the library to read CSV files containing input and output data for machine learning models.
 
 - [ ] **Model creation and training**: The library will allow users to create machine learning models and train them using various algorithms.
@@ -26,4 +32,4 @@ As a hobby project, contributions to this library are not expected.
 
 ## Diagram
 
-https://excalidraw.com/#json=VHYp8KUlEBYfsxQtXaw0n,0JJEjEK4tQR8I6_ys7ulmQ
+https://excalidraw.com/#json=1hnaLN4aCsdgbCQGvnLgo,5nTfXlMYkr6bypzvDZzH9g
