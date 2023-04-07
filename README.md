@@ -15,7 +15,7 @@ Currently, the library is in the early stages of development, and there are limi
 - [ ] **Kernel initialization**: I will implement various methods for kernel initialization in neural networks, such as He initialization, Xavier initialization, and random initialization.
     - <s>Zero initialization</s>
     - Random normal initialization
-    - Random uniform initialization
+    - <s>Random uniform initialization</s>
     - Xavier/Glorot Initialization
     - Normalized Xavier/Glorot
     - He Uniform Initialization
@@ -32,4 +32,4 @@ As a hobby project, contributions to this library are not expected.
 
 ## Diagram
 
-https://excalidraw.com/#json=1hnaLN4aCsdgbCQGvnLgo,5nTfXlMYkr6bypzvDZzH9g
+https://excalidraw.com/#json=O3upoa4aqDNusWq3pgisO,MamDZ9l97qxXSAhGm6p74A

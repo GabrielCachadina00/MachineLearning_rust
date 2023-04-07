@@ -1,44 +1,88 @@
-//Matrix operations
+//  MATRIX OPERATIONS
+
+
+
 use rand::Rng; //Random numbers
 
+
+pub struct Matrix{
+    pub rows:usize,
+    pub cols:usize,
+    pub values:Vec<Vec<f64>>
+}
+
+//------------------------------------------------------------------------------------------
+//                          Initialization methods
+//------------------------------------------------------------------------------------------
 //Init a matrix rows x columns with 0s
-pub fn matrix_init_0 (row:u32,col:u32)->Vec<Vec<f64>>{
-    let matrix = vec![vec![0.32;row.try_into().unwrap()];col.try_into().unwrap()]; //conversion because vec needs usize and row/col are u32
+pub fn matrix_init_0 (nrow:usize,ncol:usize)->Matrix{
+
+    let matrix = Matrix{
+        rows: nrow,
+        cols: ncol,
+        values: vec![vec![0.0;ncol];nrow],
+    };
+
     return matrix;
 }
 
-
-// NOT YET WORKING
 //Init a matrix rows x columns with a normal distribution from min to max
-pub fn matrix_init_runiform (row:u32,col:u32,min:i32,max:i32)->Vec<Vec<f64>>{
-    let mut matrix = matrix_init_0(row,col);
-    
-    let mut rng = rand::thread_rng();
+pub fn matrix_init_runiform(nrow:usize,ncol:usize,min:f64,max:f64)->Matrix{
+    let mut rng = rand::thread_rng(); //initialize rng thread   
+    let mut matrix = matrix_init_0(nrow,ncol); //Initialize the matrix to 0s
 
-    for (i, row) in matrix.iter().enumerate(){
-        for (j,value) in row.iter().enumerate(){
-            let r = rng.gen::<f64>();
-            let sumation = (min.abs() + max.abs()) as f64;
-            println!("{i},{j}");
+    for i in 0..matrix.rows{
+        for j in 0..matrix.cols{
+            let r = rng.gen::<f64>();                           //Float between 0 and 1
+            let sumation = min.abs() + max.abs();
 
-            //matrix[i][j] = (r*sumation) - (min.abs()) as f64; //Should do the operation and save the value in [i][j], but I have already borrowed it, looking for a solution
-
-        }
+            matrix.values[i][j] = (r*sumation) - min.abs();    //value = (random*(absmin+absmax))-absmin
+        }                                                       
     }
 
     return matrix;
 }
 
+//------------------------------------------------------------------------------------------
+//                          Matrix operations
+//------------------------------------------------------------------------------------------
 
+//Matrix multiplication
+pub fn matrix_mul (a:&Matrix,b:&Matrix)->Matrix{
+    //Can it be done?
+    if (a.rows != b.cols) || (a.cols != b.rows){
+        eprintln!("Not valid dimensions for matrix multiplication");
+        std::process::exit(1)
+    }
+
+
+    let mut result = matrix_init_0(a.rows,b.cols); //Initialize the matrix to 0s
+
+    for i in 0..a.rows{
+        for j in 0..b.cols{
+            for k in 0..a.cols{
+                result.values[i][j] = a.values[i][k]*b.values[k][j] + result.values[i][j];
+            }
+        }
+    }
+    return result;
+}
+
+
+
+
+//------------------------------------------------------------------------------------------
+//                          Visualization of matrixes
+//------------------------------------------------------------------------------------------
 
 // Show a matrix
-pub fn matrix_show (matrix:Vec<Vec<f64>>){
-
-    for (i, row) in matrix.iter().enumerate(){
+pub fn matrix_show (matrix:&Matrix){
+    for i in 0..matrix.rows{
         print!("|");
-        for (j,value) in row.iter().enumerate(){
-            print!(" {} ",value)
+        for j in 0..matrix.cols{
+            print!("   {}   ",matrix.values[i][j]);
         }
         print!("|\n");
     }
+    println!("\n\n\n");
 }
