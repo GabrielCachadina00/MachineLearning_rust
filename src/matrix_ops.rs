@@ -26,7 +26,7 @@ pub fn matrix_init_0 (nrow:usize,ncol:usize)->Matrix{
     return matrix;
 }
 
-//Init a matrix rows x columns with a normal distribution from min to max
+//Init a matrix rows x columns with a uniform distribution from min to max
 pub fn matrix_init_runiform(nrow:usize,ncol:usize,min:f64,max:f64)->Matrix{
     let mut rng = rand::thread_rng(); //initialize rng thread   
     let mut matrix = matrix_init_0(nrow,ncol); //Initialize the matrix to 0s
@@ -51,7 +51,7 @@ pub fn matrix_init_runiform(nrow:usize,ncol:usize,min:f64,max:f64)->Matrix{
 pub fn matrix_mul (a:&Matrix,b:&Matrix)->Matrix{
     //Can it be done?
     if (a.rows != b.cols) || (a.cols != b.rows){
-        eprintln!("Not valid dimensions for matrix multiplication");
+        eprintln!("Not valid dimensions for matrix multiplication!");
         std::process::exit(1)
     }
 
@@ -65,6 +65,26 @@ pub fn matrix_mul (a:&Matrix,b:&Matrix)->Matrix{
             }
         }
     }
+    return result;
+}
+
+//Matrix sum
+pub fn matrix_sum (a:&Matrix,b:&Matrix)->Matrix{
+    //Can it be done?
+    if (a.rows != b.rows) || (a.cols != b.cols){
+        eprintln!("Not valid dimensions for matrix sum!");
+        std::process::exit(1)
+    }
+
+
+    let mut result = matrix_init_0(a.rows,a.cols); //Initialize the matrix to 0s
+
+    for i in 0..a.rows{
+        for j in 0..a.cols{
+            result.values[i][j] = a.values[i][j] + b.values[i][j];
+        }
+    }
+
     return result;
 }
 
