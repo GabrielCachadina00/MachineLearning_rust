@@ -50,7 +50,7 @@ pub fn matrix_init_runiform(nrow:usize,ncol:usize,min:f64,max:f64)->Matrix{
 //Matrix multiplication
 pub fn matrix_mul (a:&Matrix,b:&Matrix)->Matrix{
     //Can it be done?
-    if (a.rows != b.cols) || (a.cols != b.rows){
+    if (a.cols != b.rows){
         eprintln!("Not valid dimensions for matrix multiplication!");
         std::process::exit(1)
     }
