@@ -32,4 +32,4 @@ As a hobby project, contributions to this library are not expected.
 
 ## Diagram
 
-https://excalidraw.com/#json=SgDDHkSpoHbLfGZUQMpDt,r6KCY3t66KYo5n_0A_jsew
+https://excalidraw.com/#json=8FVN-32Jxjb5pdnEnxR0V,wlJYIyfxLdADsHTBPn9hQQ

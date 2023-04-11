@@ -1,4 +1,6 @@
 //  MATRIX OPERATIONS
+use crate::act_fnc::act_relu;
+use crate::act_fnc::act_sigmoid;
 
 
 
@@ -50,7 +52,7 @@ pub fn matrix_init_runiform(nrow:usize,ncol:usize,min:f64,max:f64)->Matrix{
 //Matrix multiplication
 pub fn matrix_mul (a:&Matrix,b:&Matrix)->Matrix{
     //Can it be done?
-    if (a.cols != b.rows){
+    if a.cols != b.rows {
         eprintln!("Not valid dimensions for matrix multiplication!");
         std::process::exit(1)
     }
@@ -105,4 +107,35 @@ pub fn matrix_show (matrix:&Matrix){
         print!("|\n");
     }
     println!("\n\n\n");
+}
+
+
+//------------------------------------------------------------------------------------------
+//                          Apply an activation function
+//------------------------------------------------------------------------------------------
+
+
+pub fn matrix_act(neurons: &Matrix, activation : &String)->Matrix{
+    //Testing if the activation given exist:
+    if(activation != "relu") && (activation != "sigmoid"){
+        eprintln!("Not a valid activation function!");
+        std::process::exit(1)
+    }
+
+
+    let mut result = matrix_init_0(neurons.rows,neurons.cols); //Initialize the matrix to 0s
+
+    for i in 0..neurons.rows{
+        for j in 0..neurons.cols{
+            if activation == "relu"{
+                result.values[i][j] = act_relu(neurons.values[i][j]);
+            }
+            if activation == "sigmoid"{
+                result.values[i][j] = act_sigmoid(neurons.values[i][j]);
+            }
+        }
+    }
+
+    return result;
+
 }

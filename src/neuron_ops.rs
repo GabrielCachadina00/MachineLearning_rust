@@ -5,7 +5,8 @@ use crate::matrix_ops::matrix_init_0;
 use crate::matrix_ops::matrix_init_runiform;
 use crate::matrix_ops::matrix_mul;
 use crate::matrix_ops::matrix_sum;
-use crate::matrix_ops::matrix_show;
+use crate::matrix_ops::matrix_act;
+
 
 
 
@@ -66,9 +67,10 @@ pub fn weight_init_0s(mut result:Layer)->Layer{
 //                          Feed forward
 //------------------------------------------------------------------------------------------
 
-pub fn model_ff(model:&mut [Layer],input:&Matrix){
+pub fn model_ff(model:&mut [Layer],input:&Matrix)->Matrix{
+    let mut result:Matrix;
 
-    for i in (0..model.len()-1){
+    for i in 0..model.len()-1{
         println!("{}",model[i].activation);
 
         if i == 0{//Using input matrix
@@ -76,16 +78,18 @@ pub fn model_ff(model:&mut [Layer],input:&Matrix){
             model[0].neurons.values = (*input.values).to_vec();
         }
 
-        
-
         model[i+1].neurons = matrix_mul(&model[i].weights,&model[i].neurons);
-
         model[i+1].neurons = matrix_sum(&model[i+1].neurons,&model[i].biases);
 
         //Needs the activation fnc
+        model[i+1].neurons = matrix_act(&model[i+1].neurons,&model[i].activation);
 
     }
 
     //Last layer is the same but outputs to a new matrix
+    result = matrix_mul(&model[model.len()-1].weights,&model[model.len()-1].neurons);
+    result = matrix_sum(&result,&model[model.len()-1].biases);
+    result = matrix_act(&result,&model[model.len()-1].activation);
 
+    return result;
 }
